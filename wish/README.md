@@ -1,15 +1,13 @@
-# Chatbot-Scripts
-
-## Wish
+# Wish
 This is a Script inspired by the Wish system in Genshin Impact. It allows a stream member to perform pulls on the event banner using their channel points.
 
-### Usage
+## Usage
 `!wish <points>`
 
 - Points are used to pay for the roll. The cost is determined by the Streamer's settings. To use this command, put in the number of points you wish to use. The script will calculate how many rolls you can do and deduct them once the result is returned. 
 - If a user puts in a point value that is higher than what they currently have, nothing will happen. 
 
-### Streamer Setup
+## Streamer Setup
 1. First, you'll need to import the script by downloading this folder and compressing it as a zip. You'll then want to import the script in your Streamlabs Chatbot Desktop app.
 2. Configure the following settings (optional) (THIS IS CURRENTLY NOT AVAILABLE YET, STAY TUNED):
     - Event Five Star: whatever character you want to be the featured five star. ex. 'Zhongli (Geo)'
