@@ -11,10 +11,12 @@ class UserData:
 		self.four_star_guarantee = four_star_guarantee
 	
 	def update_pity_counts(self, five_star_pity, four_star_pity):
+		self.log("Updating pity counts for user " + self.username)
 		self.five_star_pity = five_star_pity
 		self.four_star_pity = four_star_pity
 
 	def update_guarantees(self, five_star_guarantee, four_star_guarantee):
+		self.log("Updating guarantees for user " + self.username)
 		self.five_star_guarantee = five_star_guarantee
 		self.four_star_guarantee = four_star_guarantee
 
