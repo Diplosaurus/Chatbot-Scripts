@@ -21,7 +21,7 @@ class UserData:
 		self.four_star_guarantee = four_star_guarantee
 
 	def deduct_points(self, points):
-		self.log("Deducting " + str([points]) + " points from user: " + self.username)
+		self.log("Deducting " + str(points) + " points from user: " + self.username)
 		self.Parent.RemovePoints(self.user, self.username, points)
 
 	def log(self, message):

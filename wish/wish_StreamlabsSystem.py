@@ -4,6 +4,7 @@
 import os
 import sys
 import json
+
 sys.path.append(os.path.join(os.path.dirname(__file__), "lib")) #point at lib folder for classes / references
 
 
@@ -25,8 +26,6 @@ Website = "https://www.streamlabs.com"
 Description = "Performs a wish on the genshin standard banner"
 Creator = "Derek Phan"
 Version = "1.0.0"
-Command = '!wish'
-Cost = 160
 
 #---------------------------
 #   Define Global Variables
@@ -44,9 +43,14 @@ user_wish_data = {}
 #   [Required] Initialize Data (Only called on load)
 #---------------------------
 def Init():
-
+    # Initialize global variables
+    global Command
+    global Cost
+    global Cooldown
+    global EventBanner
+    global MaxWishes
+    global InsufficientPointsResponse 
     #   Create Settings Directory
-    '''
     directory = os.path.join(os.path.dirname(__file__), "Settings")
     if not os.path.exists(directory):
         os.makedirs(directory)
@@ -54,54 +58,58 @@ def Init():
     #   Load settings
     SettingsFile = os.path.join(os.path.dirname(__file__), "Settings\settings.json")
     ScriptSettings = MySettings(SettingsFile)
-    ScriptSettings.Response = "Overwritten pong! ^_^"
-    '''
+
+    Command = ScriptSettings.Command
+    Cost = ScriptSettings.Cost
+    Cooldown = ScriptSettings.Cooldown
+    InsufficientPointsResponse = ScriptSettings.InsufficientPointsResponse
+
+    MaxWishes = ScriptSettings.MaxWishes
+
+    # Create the banner object
+    event_four_stars = [four_star.strip() for four_star in ScriptSettings.EventFourStars.split(',')]
+    event_five_star = ScriptSettings.EventFiveStar
+    additional_four_stars = [add_four_star.strip() for add_four_star in ScriptSettings.AdditionalFourStars.split(',')]
+    EventBanner = Banner(Parent, event_five_star, event_four_stars, additional_four_stars)
     return
 
 #---------------------------
 #   [Required] Execute Data / Process messages
 #---------------------------
 def Execute(data):
-    '''
-    if data.IsChatMessage() and data.GetParam(0).lower() == ScriptSettings.Command and Parent.IsOnUserCooldown(ScriptName,ScriptSettings.Command,data.User):
-        Parent.SendStreamMessage("Time Remaining " + str(Parent.GetUserCooldownDuration(ScriptName,ScriptSettings.Command,data.User)))
-
-    #   Check if the propper command is used, the command is not on cooldown and the user has permission to use the command
-    if data.IsChatMessage() and data.GetParam(0).lower() == ScriptSettings.Command and not Parent.IsOnUserCooldown(ScriptName,ScriptSettings.Command,data.User) and Parent.HasPermission(data.User,ScriptSettings.Permission,ScriptSettings.Info):
-        Parent.BroadcastWsEvent("EVENT_MINE","{'show':false}")
-        Parent.SendStreamMessage(ScriptSettings.Response)    # Send your message to chat
-        Parent.AddUserCooldown(ScriptName,ScriptSettings.Command,data.User,ScriptSettings.Cooldown)  # Put the command on cooldown
-    '''
-    if data.GetParam(0) != Command and data.GetParam(0) != '!gift':
-        return
-
-    parsed_points = int(data.GetParam(1))
-
+    # for testing purposes, remove before deploying
     if data.GetParam(0) == '!gift':
+        parsed_points = int(data.GetParam(1))
         Parent.AddPoints(data.User, data.UserName, parsed_points)
+        send_message("Giving points {}".format(str(parsed_points)))
         return
 
-    if parsed_points > Cost * 10:
-        log("Too many wishes at once. Max is 10 rolls at a time.")
+    # Validate that the user can run the command based on cooldown and permissions
+    if not validateUserCanRunCommand(data):
         return
+    else:
+        Parent.AddUserCooldown(ScriptName, Command, data.User, Cooldown)  # Put the command on cooldown
 
     user = data.User
     userName = data.UserName
     user_points = Parent.GetPoints(user)
 
+    parsed_points = int(data.GetParam(1))
     if parsed_points > user_points:
-        send_message("@" + userName + ": insufficient points for requested wishes. Broke bitch.")
+        send_message("@{}: {}".format(userName, InsufficientPointsResponse))
         return
 
     log("num points is " + str(parsed_points))
     num_rolls = calculate_num_rolls(parsed_points)
 
-    event_banner = Banner(Parent, "Zhongli (Geo)", ["Chongyun (Cryo)", "Xingqiu (Hydro)", "Beidou (Electro)"])
+    if num_rolls > MaxWishes:
+        log("Too many wishes at once. Max is {} rolls at a time.".format(MaxWishes))
+        return
 
     log("Finding user data")
     userdata = initialize_user_data(user, userName)
 
-    drops = event_banner.roll_banner(num_rolls, userdata)
+    drops = EventBanner.roll_banner(num_rolls, userdata)
 
     send_result_message(drops, userdata)
     #send_whisper_message(user,  'Five star pity: ' + str(userdata.five_star_pity))
@@ -149,6 +157,11 @@ def send_whisper_message(user, message):
 def log(message):
     Parent.Log(Command, message)
     return
+
+def validateUserCanRunCommand(data):
+    if data.IsChatMessage() and data.GetParam(0).lower() == Command and Parent.GetUserCooldownDuration(ScriptName, Command, data.User) <= 0 and Parent.HasPermission(data.User, ScriptSettings.Permission, data.User):
+        return True
+    return False
 
 
 #---------------------------

@@ -1,0 +1,70 @@
+{
+    "output_file": "Settings/settings.json",
+    "Command": {
+      "type": "textbox",
+      "value": "!wish",
+      "label": "Command",
+      "tooltip": "The command that will be responded to.",
+      "group": "Script Settings"
+    },
+    "Permission": {
+      "type": "dropdown",
+      "value": "everyone",
+      "items": ["everyone","moderator","subscriber","user_specific","editor"],
+      "label": "Permission",
+      "tooltip": "Who is able to use the command",
+      "group": "Script Settings"
+    },
+    "Cooldown": {
+      "type": "slider",
+      "value": 20,
+      "min": 0,
+      "max": 100,
+      "ticks": 5,
+      "label": "Cooldown (seconds)",
+      "tooltip": "How long the command should go on cooldown for",
+      "group": "Script Settings"
+    },
+    "InsufficientPointsResponse": {
+        "type": "textbox",
+        "value": "Insufficient points for requested wishes. Broke bitch.",
+        "label": "Insufficient points response",
+        "tooltip": "The message that will be sent to chat when a user has insufficient points for a wish.",
+        "group": "Script Settings"
+    },
+    "EventFiveStar": {
+      "type": "textbox",
+      "value": "",
+      "label": "Event 5 Star",
+      "tooltip": "The event 5 star character. Format name as: <Name> (<Element>). ex. Xiao (Anemo)",
+      "group": "Wish Settings"
+    },
+    "EventFourStars": {
+      "type": "textbox",
+      "value": "",
+      "label": "Event 4 Stars",
+      "tooltip": "A list of event 4 star characters, separated by commas. ex. Fischl (Electro), Sayu (Anemo), Xiangling (Pyro)",
+      "group": "Wish Settings"
+    },
+    "Cost": {
+      "type": "numberbox",
+      "value": 160,
+      "label": "Wish Cost",
+      "tooltip": "The number of channel points for a single wish",
+      "group": "Wish Settings"
+    },
+    "MaxWishes": {
+      "type": "numberbox",
+      "value": 10,
+      "label": "Max Wishes",
+      "tooltip": "The maximum number of wishes a user can request in a single command",
+      "group": "Wish Settings"
+    },
+    "AdditionalFourStars": {
+      "type": "textbox",
+      "value": "",
+      "label": "Additional 4 stars",
+      "tooltip": "A list of additional four stars that have been released but may not be part of the pool, separated by commas. If the character is already in the pool, they will not be added twice.",
+      "group": "Wish Settings"
+    }
+  }

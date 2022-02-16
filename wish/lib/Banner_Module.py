@@ -42,20 +42,22 @@ FOUR_STAR_PITY = 10
 Command = 'Banner'
 
 class Banner:
-	def __init__(self, Parent=None, event_five_star=None, event_four_stars=None):
+	def __init__(self, Parent=None, event_five_star=None, event_four_stars=None, additional_four_stars=None):
 		self.Parent = Parent
 		self.event_five_star = event_five_star
 		self.event_four_stars = event_four_stars
 
+		# Add any additional characters to the pool in case the base pool is not up to date
+		for addition in additional_four_stars:
+			if not addition in FOUR_STAR_POOL:
+				FOUR_STAR_POOL.append(addition)
+		
 		# Make it so that the pools are separate to prevent double chances of getting event characters
 		for character in self.event_four_stars:
 			if character in FOUR_STAR_POOL:
 				FOUR_STAR_POOL.remove(character)
 			else: 
 				self.log("Could not find character: " + character + " in four star pool. Make sure this character exists and is spelled correctly.")
-	
-	def hello_world(self):
-		return "Hello world"
 
 	def roll_banner(self, times, userdata):
 		self.log("Rolling banner")
@@ -199,6 +201,8 @@ class Banner:
 #   Util Functions (Do not need a object to be used)
 #---------------------------
 
+# Taken from: https://stackoverflow.com/questions/59000464/why-is-my-implementation-of-numpy-random-choice-faster
+# We aren't able to import numpy to use choices, and we cannot use random.choices since it's unsupported in python 2.7.13. 
 def select(array, total_count, probability):
     probability_accumulative = []
     last_element = 0
