@@ -148,14 +148,14 @@ class Banner:
 		elif rarity is DROP_RARITIES[1]:
 			# If the wish has a four star guarantee, then pick from the pool of event four stars
 			# Set four star guarantee to false
-			if userdata.four_star_guarantee == True:
+			if userdata.four_star_guarantee == True and self.event_four_stars:
 				userdata.four_star_guarantee = False
 				return self.random_choice(self.event_four_stars)
 
 			# If the wish has no guarantee, perform a 50/50. If the result is true, choose from the pool of event four stars
 			# Otherwise, choose from the pool of general four stars and set the four star guarantee to true for the next wish.
 			get_event_character = self.random_choice([False, True])
-			if get_event_character:
+			if get_event_character and self.event_four_stars:
 				return self.random_choice(self.event_four_stars)
 
 			random_drop = self.random_choice(FOUR_STAR_POOL)
@@ -167,14 +167,14 @@ class Banner:
 		else:
 			# If the wish has a five star guarantee, then return the event five star
 			# Set the four star guarantee to false
-			if userdata.five_star_guarantee == True:
+			if userdata.five_star_guarantee == True and self.event_five_star:
 				userdata.five_star_guarantee = False
 				return self.event_five_star
 
 			# If the wish has no guarantee, perform a 50/50. If the result is true, return the event five star character
 			# Otherwise, choose from the pool of general five stars and set the five star guarantee to true for the next wish
 			get_event_character = self.random_choice([False, True])
-			if get_event_character:
+			if get_event_character and self.event_five_star:
 				return self.event_five_star
 			
 			userdata.five_star_guarantee = True

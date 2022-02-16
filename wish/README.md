@@ -9,7 +9,7 @@ This is a Script inspired by the Wish system in Genshin Impact. It allows a stre
 
 ## Streamer Setup
 1. First, you'll need to import the script by downloading this folder and compressing it as a zip. You'll then want to import the script in your Streamlabs Chatbot Desktop app.
-2. Configure the following settings (optional) (THIS IS CURRENTLY NOT AVAILABLE YET, STAY TUNED):
+2. Configure the following settings (optional):
     - Event Five Star: whatever character you want to be the featured five star. ex. 'Zhongli (Geo)'
     - Event Four Stars: A list of featured four star characters, separated by commas. ex. Razor (Electro), Lisa (Electro), Kaeya (Electro)
     - Four Star Pool (optional): A list of four stars to be included in the pool. If not specified, the default pool will be used.
