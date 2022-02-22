@@ -9,7 +9,7 @@ class MySettings(object):
 				self.__dict__ = json.load(f, encoding="utf-8")
 		except:
 			self.Command = "!wish"
-			self.Cooldown = 20
+			self.Cooldown = 10
 			self.Permission = "everyone"
 			self.EventFiveStar = ""
 			self.EventFourStars = ""

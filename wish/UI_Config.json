@@ -17,7 +17,7 @@
     },
     "Cooldown": {
       "type": "slider",
-      "value": 20,
+      "value": 10,
       "min": 0,
       "max": 100,
       "ticks": 5,
