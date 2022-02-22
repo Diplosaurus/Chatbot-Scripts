@@ -2,7 +2,7 @@
 This is a collection of scripts to be used with Streamlabs Chatbot. For more information, please visit: https://streamlabs.com/content-hub/post/chatbot-scripts-desktop
 
 ## Table of Contents
-- [Wish](wish/README.md) - allows stream members to use channel points to wish on a Genshin Impact banner 
+- [Wish](wish/) - allows stream members to use channel points to wish on a Genshin Impact banner 
 
 ## How to download and install a script
 The zip files of the scripts that you can download are located in the `uploads` folder. 
