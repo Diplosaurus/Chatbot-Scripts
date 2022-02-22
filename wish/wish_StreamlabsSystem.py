@@ -67,9 +67,15 @@ def Init():
     MaxWishes = ScriptSettings.MaxWishes
 
     # Create the banner object
-    event_four_stars = [four_star.strip() for four_star in ScriptSettings.EventFourStars.split(',')]
+    event_four_stars = []
+    if ScriptSettings.EventFourStars:\
+        event_four_stars = [four_star.strip() for four_star in ScriptSettings.EventFourStars.split(',')]
     event_five_star = ScriptSettings.EventFiveStar
-    additional_four_stars = [add_four_star.strip() for add_four_star in ScriptSettings.AdditionalFourStars.split(',')]
+
+    additional_four_stars = []
+    if ScriptSettings.AdditionalFourStars:
+        additional_four_stars = [add_four_star.strip() for add_four_star in ScriptSettings.AdditionalFourStars.split(',')]
+        
     EventBanner = Banner(Parent, event_five_star, event_four_stars, additional_four_stars)
     return
 

@@ -155,7 +155,7 @@ class Banner:
 			# If the wish has no guarantee, perform a 50/50. If the result is true, choose from the pool of event four stars
 			# Otherwise, choose from the pool of general four stars and set the four star guarantee to true for the next wish.
 			get_event_character = self.random_choice([False, True])
-			if get_event_character and self.event_four_stars:
+			if get_event_character and len(self.event_four_stars) > 0:
 				return self.random_choice(self.event_four_stars)
 
 			random_drop = self.random_choice(FOUR_STAR_POOL)

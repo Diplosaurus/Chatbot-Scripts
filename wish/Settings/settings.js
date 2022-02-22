@@ -1,11 +1,11 @@
 ﻿var settings = {
   "Command": "!wish",
   "Permission": "everyone",
-  "Cooldown": 20.0,
+  "Cooldown": 0,
   "InsufficientPointsResponse": "Insufficient points for requested wishes. Broke bitch.",
   "EventFiveStar": "Yae Miko (Electro)",
-  "EventFourStars": "Diona (Cryo), Thoma (Pyro), Fischl (Electro)",
+  "EventFourStars": "Diona (Cryo), Fischl (Electro), Thoma (Pyro)",
   "Cost": 160,
-  "AdditionalFourStars": "Yaoyao (Dendro), Scaradouche (Electro)",
+  "AdditionalFourStars": "",
   "MaxWishes": 10
 };
